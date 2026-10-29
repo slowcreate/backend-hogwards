@@ -2,15 +2,15 @@ import { pool } from "../db.js";
 
 export async function getAllCourses() {
   const result = await pool.query(`
-      SELET * FROM courses
+      SELECT * FROM courses
     `);
 
   return result.rows;
 }
 
-export async function getHouseById(id) {
+export async function getCourseById(id) {
   const one = await pool.query(
-    "SELECT id, name, color, founder FROM houses WHERE id = $1",
+    "SELECT id, name, color, fk_teacher FROM teachers WHERE id = $1",
     [id],
   );
   if (one.rowCount === 0) {

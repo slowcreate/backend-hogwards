@@ -168,21 +168,24 @@ const app = express();
 const port = 3000;
 
 import housesRouter from "./routers/houses.router.js";
-import teachersRouter from "./routers/teachers.route.js";
-import studentsRouter from "./routers/students.route.js";
+import teachersRouter from "./routers/teachers.router.js";
+import studentsRouter from "./routers/students.router.js";
+import coursesRouter from "./routers/courses.router.js";
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // parse JSON bodies
-//HOUSES
 
+//HOUSES
 app.use("/houses/", housesRouter);
 
 //TEACHERS
-
 app.use("/teachers/", teachersRouter);
-//STUDENTS
 
+//STUDENTS
 app.use("/students/", studentsRouter);
+
+//COURSES
+app.use("/courses/", coursesRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

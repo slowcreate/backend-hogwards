@@ -2,6 +2,7 @@
 import express from "express";
 //const pool = require("./db");
 import {pool} from "./db.js";
+import * as housesRepository from './repositories/houses.repository.js'
 const app = express();
 const port = 3000;
 
@@ -11,9 +12,8 @@ app.use(express.json()); // parse JSON bodies
 //READ ALLE HUSENE
 app.get("/houses", async (req, res) => {
   try {
-    const result = await pool.query("Select * from houses");
-    console.log(result.rows);
-    res.status(200).json(result.rows);
+  const allHouses = await housesRepository.getAllHouses();
+    res.json(allHouses)
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Database error", code: error.code });

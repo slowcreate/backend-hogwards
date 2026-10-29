@@ -12,10 +12,10 @@ export async function getAllHouses(req, res) {
 export async function getHousesById(req, res) {
   try {
     const id = req.params.id;
-    const house = await housesRepository.getHousesById(id);
+    const house_id = await housesRepository.getHousesById(id);
 
     if (house) {
-      res.status(200).json(house);
+      res.status(200).json(house_id);
     } else {
       res.sendStatus(404);
     }

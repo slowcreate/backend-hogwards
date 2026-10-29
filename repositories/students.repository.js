@@ -6,7 +6,7 @@ export async function getAllStudents() {
 }
 
 export async function getStudentsById(id) {
-  const one = await pool.query("SELECT id, name, house FROM students WHERE id = $1", [id]);
+  const one = await pool.query("SELECT id, name, house_id FROM students WHERE id = $1", [id]);
   if (one.rowCount === 0) {
     return null;
   } else {
@@ -14,8 +14,8 @@ export async function getStudentsById(id) {
   }
 }
 
-export async function createStudent({ name, house, year }) {
-  const result = await pool.query("INSERT into students (name, house, year) values ($1, $2, $3) returning id, name, house, year", [name, house, year]);
+export async function createStudent({ name, house_id, year }) {
+  const result = await pool.query("INSERT into students (name, house_id, year) values ($1, $2, $3) returning id, name, house_id, year", [name, house_id, year]);
   if (result.rowCount === 0) {
     return null;
   } else {
@@ -28,8 +28,8 @@ export async function deleteStudent(id) {
   return del.rowCount > 0;
 }
 
-export async function updateStudent(id, { name, house, year }) {
-  const upd = await pool.query("UPDATE students SET name = $1, house = $2, year = $3 WHERE id = $4 RETURNING id, name, house, year", [name, house, year, id]);
+export async function updateStudent(id, { name, house_id, year }) {
+  const upd = await pool.query("UPDATE students SET name = $1, house_id = $2, year = $3 WHERE id = $4 RETURNING id, name, house_id, year", [name, house_id, year, id]);
   if (upd.rowCount === 0) {
     return null;
   } else {

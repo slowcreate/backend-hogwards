@@ -25,7 +25,12 @@ export async function getStudentsById(req, res) {
 }
 export async function createStudent(req, res) {
   try {
-    const newStudent = await studentsRepository.createStudent(req.body);
+    const { name, house_id, year } = req.body;
+    const newStudent = await studentsRepository.createStudent({
+      name,
+      house_id,
+      year,
+    });
 
     if (newStudent) {
       res.status(200).json(newStudent);
@@ -55,7 +60,12 @@ export async function deleteStudent(req, res) {
 export async function updateStudent(req, res) {
   const id = req.params.id;
   try {
-    const updatedStudent = await studentsRepository.updateStudent(id, req.body);
+    const { name, house_id, year } = req.body;
+    const updatedStudent = await studentsRepository.updateStudent(id, {
+      name,
+      house_id,
+      year,
+    });
     if (updatedStudent) {
       res.status(200).json(updatedStudent);
     } else {

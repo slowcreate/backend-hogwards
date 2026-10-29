@@ -25,7 +25,8 @@ export async function getTeachersById(req, res) {
 }
 export async function createTeacher(req, res) {
   try {
-    const newTeacher = await teachersRepository.createTeacher(req.body);
+    const { name, house_id } = req.body;
+    const newTeacher = await teachersRepository.createTeacher({ name, house_id });
 
     if (newTeacher) {
       res.status(200).json(newTeacher);
@@ -55,7 +56,8 @@ export async function deleteTeacher(req, res) {
 export async function updateTeacher(req, res) {
   const id = req.params.id;
   try {
-    const updatedTeacher = await teachersRepository.updateTeacher(id, req.body);
+    const { name, house_id } = req.body;
+    const updatedTeacher = await teachersRepository.updateTeacher(id, { name, house_id });
     if (updatedTeacher) {
       res.status(200).json(updatedTeacher);
     } else {

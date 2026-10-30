@@ -1,0 +1,26 @@
+meta {
+  name: Create course
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{baseUrl}}/courses
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "name": "Herbology",
+    "fk_teacher": 1
+  }
+}
+
+assert {
+  res.status: eq 201
+}
+
+script:post-response {
+  bru.setVar("courseId", res.body.id);
+}

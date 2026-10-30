@@ -1,0 +1,65 @@
+# Pseudokode
+
+## GET /houses
+- hent alle houses fra databasen
+- send dem tilbage
+
+## GET /houses/:id
+- tag id fra url'en
+- hent det house der har det id
+- hvis det ikke findes → send 404
+- ellers → send house'et
+
+## GET /teachers, GET /students, GET /courses
+- ligesom GET /houses
+
+## GET /teachers/:id, GET /students/:id
+- ligesom GET /houses/:id
+
+## POST /teachers
+- tag name og house_id fra body
+- gem den nye teacher i databasen
+- send den nye teacher tilbage med 201
+
+## PUT /teachers/:id
+- tag id fra url'en og name og house_id fra body
+- opdatér teacheren med det id
+- hvis den ikke findes → send 404
+- ellers → send den opdaterede teacher
+
+## DELETE /teachers/:id
+- tag id fra url'en
+- slet teacheren med det id
+- hvis den ikke findes → send 404
+- ellers → send 204
+
+## POST, PUT, DELETE /students
+- ligesom teachers, men en student har også et year
+
+## POST, PUT, DELETE /courses
+- ligesom teachers, men et course har name og fk_teacher
+
+## GET /courses/:id
+- tag id fra url'en
+- hent kurset og navnet på kursets teacher
+- hvis kurset ikke findes → send 404
+- hent alle students der er på kurset (fra course_students)
+- sæt listen af students på kurset
+- send kurset tilbage
+
+## PUT /courses/:id/teacher
+- tag kursets id fra url'en og teacherId fra body
+- sæt kursets fk_teacher til teacherId
+- hvis kurset ikke findes → send 404
+- ellers → send det opdaterede kursus
+
+## POST /courses/:id/students
+- tag kursets id fra url'en og studentId fra body
+- gem en ny række i course_students med kursets id og studentens id
+- send 201
+
+## DELETE /courses/:id/students/:studentId
+- tag kursets id og studentens id fra url'en
+- slet rækken i course_students med de to id'er
+- hvis den ikke findes → send 404
+- ellers → send 204

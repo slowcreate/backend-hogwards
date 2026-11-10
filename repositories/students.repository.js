@@ -1,6 +1,7 @@
 import { pool } from "../db.js";
+//import * as repositories from '../repositories/students.repositories.js'
 
-export async function getAllStudents() {
+export async function getAllStudents() { 
   const result = await pool.query("Select * from students");
   return result.rows;
 }

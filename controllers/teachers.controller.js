@@ -1,4 +1,6 @@
 import * as teachersRepository from "../repositories/teachers.repository.js";
+import HTTPError from "../errorhandling/HTTPError.js";
+
 export async function getAllTeachers(req, res) {
   try {
     const allTeachers = await teachersRepository.getAllTeachers();
@@ -9,62 +11,69 @@ export async function getAllTeachers(req, res) {
   }
 }
 export async function getTeachersById(req, res) {
-  try {
-    const id = req.params.id;
-    const teacher = await teachersRepository.getTeachersById(id);
+  //  try {
+  const id = req.params.id;
+  const teacher = await teachersRepository.getTeachersById(id);
 
-    if (teacher) {
-      res.status(200).json(teacher);
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Database error" });
+  if (teacher) {
+    res.status(200).json(teacher);
+  } else {
+    res.sendStatus(404);
   }
+  //  } catch (err) {
+  //    console.error(err);
+  //    res.status(500).json({ error: "Database error" }); }
+  if (teacher) {
+    return res.status(200).json(teacher);
+  }
+  throw new HTTPError(404, "Teacher not found");
 }
-export async function createTeacher(req, res) {
-  try {
-    const { name, house_id } = req.body;
-    const newTeacher = await teachersRepository.createTeacher({ name, house_id });
 
-    if (newTeacher) {
-      res.status(200).json(newTeacher);
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Database error" });
+export async function createTeacher(req, res) {
+  //  try {
+  const { name, house_id } = req.body;
+  const newTeacher = await teachersRepository.createTeacher({
+    name,
+    house_id,
+  });
+
+  if (newTeacher) {
+    res.status(200).json(newTeacher);
+  } else {
+    res.sendStatus(404);
   }
+  //  } catch (err) {
+  //    console.error(err);
+  //    res.status(500).json({ error: "Database error" });}
 }
 export async function deleteTeacher(req, res) {
-  try {
-    const id = req.params.id;
-    const delTeacher = await teachersRepository.deleteTeacher(id);
+  // try {
+  const id = req.params.id;
+  const delTeacher = await teachersRepository.deleteTeacher(id);
 
-    if (delTeacher) {
-      res.sendStatus(200);
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Database error" });
+  if (delTeacher) {
+    res.sendStatus(200);
+  } else {
+    res.sendStatus(404);
   }
+  //  } catch (err) {
+  //    console.error(err);
+  //    res.status(500).json({ error: "Database error" }); }
 }
 export async function updateTeacher(req, res) {
   const id = req.params.id;
-  try {
-    const { name, house_id } = req.body;
-    const updatedTeacher = await teachersRepository.updateTeacher(id, { name, house_id });
-    if (updatedTeacher) {
-      res.status(200).json(updatedTeacher);
-    } else {
-      res.sendStatus(404);
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Database error" });
+  // try {
+  const { name, house_id } = req.body;
+  const updatedTeacher = await teachersRepository.updateTeacher(id, {
+    name,
+    house_id,
+  });
+  if (updatedTeacher) {
+    res.status(200).json(updatedTeacher);
+  } else {
+    res.sendStatus(404);
   }
+  //  } catch (err) {
+  //  console.error(err);
+  //    res.status(500).json({ error: "Database error" }); }
 }

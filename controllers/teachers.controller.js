@@ -14,19 +14,10 @@ export async function getTeachersById(req, res) {
   //  try {
   const id = req.params.id;
   const teacher = await teachersRepository.getTeachersById(id);
-
-  if (teacher) {
-    res.status(200).json(teacher);
-  } else {
-    res.sendStatus(404);
+  if (!teacher) {
+    return next(new HTTPError(404, "Teacher not found"));
   }
-  //  } catch (err) {
-  //    console.error(err);
-  //    res.status(500).json({ error: "Database error" }); }
-  if (teacher) {
-    return res.status(200).json(teacher);
-  }
-  throw new HTTPError(404, "Teacher not found");
+  res.json(teacher);
 }
 
 export async function createTeacher(req, res) {

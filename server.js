@@ -1,7 +1,7 @@
 import express from "express";
 //const pool = require("./db");
 import { pool } from "./db.js";
-import errorhandler from "./errorhandling/errorhandler.js";
+import { errorHandler } from "./errorhandling/errorhandler.js";
 const app = express();
 const port = 3000;
 
@@ -29,4 +29,4 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-app.use(errorhandler);
+app.use(errorHandler);

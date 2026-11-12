@@ -1,5 +1,4 @@
-import HTTPError from "../errors/HTTPError.js"; // ret stien
-
+import HTTPError from "./HTTPError.js";
 export function errorHandler(err, req, res, next) {
   if (err instanceof HTTPError) {
     return res.status(err.statusCode).json({ error: err.message });
